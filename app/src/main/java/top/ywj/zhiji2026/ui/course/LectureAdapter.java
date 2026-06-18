@@ -42,13 +42,16 @@ public class LectureAdapter extends ListAdapter<Lecture, LectureAdapter.ViewHold
             statusText = "已处理";
             statusBgRes = R.drawable.bg_status_done;
             holder.tvStatus.setTextColor(holder.itemView.getContext().getColor(R.color.status_done_text));
+            holder.progressProcessing.setVisibility(View.GONE);
         } else if ("asr".equals(lecture.getStatus())) {
             statusText = "解析中";
             statusBgRes = R.drawable.bg_status_processing;
+            holder.tvStatus.setTextColor(holder.itemView.getContext().getColor(R.color.status_processing_text));
             holder.progressProcessing.setVisibility(View.VISIBLE);
         } else if ("note_generating".equals(lecture.getStatus())) {
             statusText = "整合中";
             statusBgRes = R.drawable.bg_status_note_generating;
+            holder.tvStatus.setTextColor(holder.itemView.getContext().getColor(R.color.status_note_gen_text));
             holder.progressProcessing.setVisibility(View.VISIBLE);
         } else if ("error".equals(lecture.getStatus())) {
             statusText = "解析失败";
@@ -102,7 +105,9 @@ public class LectureAdapter extends ListAdapter<Lecture, LectureAdapter.ViewHold
         @Override
         public boolean areContentsTheSame(@NonNull Lecture oldItem, @NonNull Lecture newItem) {
             return oldItem.getTitle().equals(newItem.getTitle())
-                    && oldItem.getCreatedAt() == newItem.getCreatedAt();
+                    && oldItem.getCreatedAt() == newItem.getCreatedAt()
+                    && java.util.Objects.equals(oldItem.getStatus(), newItem.getStatus());
+
 
         }
     };

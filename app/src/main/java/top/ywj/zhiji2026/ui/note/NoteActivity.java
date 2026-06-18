@@ -1,8 +1,13 @@
 package top.ywj.zhiji2026.ui.note;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -21,6 +26,7 @@ public class NoteActivity extends AppCompatActivity {
         String lectureTitle = getIntent().getStringExtra("lecture_title");
 
         com.google.android.material.appbar.MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setTitle(lectureTitle != null ? lectureTitle : "笔记");
         toolbar.setNavigationOnClickListener(v -> finish());
 
@@ -40,4 +46,26 @@ public class NoteActivity extends AppCompatActivity {
             }
         }).attach();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.note_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_export_pdf) {
+            ViewPager2 vp = findViewById(R.id.view_pager);
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag("f" + vp.getCurrentItem());
+            if (fragment instanceof NoteFragment) {
+                ((NoteFragment) fragment).exportPdf();
+            } else {
+                Toast.makeText(this, "当前页不支持导出", Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

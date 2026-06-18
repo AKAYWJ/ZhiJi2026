@@ -1,6 +1,10 @@
 package top.ywj.zhiji2026.ui.note;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,8 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 
+import java.io.File;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -26,6 +32,8 @@ public class NoteFragment extends Fragment {
 
     private static final String ARG_LECTURE_ID = "lecture_id";
     private final CompositeDisposable disposables = new CompositeDisposable();
+
+    private WebView webView;
 
     public static NoteFragment newInstance(String lectureId) {
         NoteFragment f = new NoteFragment();
@@ -39,7 +47,7 @@ public class NoteFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        WebView webView = new WebView(requireContext());
+        webView = new WebView(requireContext());
         webView.getSettings().setJavaScriptEnabled(false);
         webView.setWebViewClient(new WebViewClient());
 
@@ -110,4 +118,32 @@ public class NoteFragment extends Fragment {
         super.onDestroyView();
         disposables.clear();
     }
+
+    @SuppressLint("NewApi")
+    public void exportPdf() {
+        if (webView == null) return;
+        String lectureId = getArguments() != null ? getArguments().getString(ARG_LECTURE_ID) : null;
+        if (lectureId == null) return;
+
+        LectureRepository repo = new LectureRepository(ZhiJiApplication.getDatabase());
+        disposables.add(
+                repo.getLectureById(lectureId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(lecture -> {
+                                    String safeTitle = lecture.getTitle().replaceAll("[\\\\/:*?\"<>|]", "_");
+                                    PrintManager pm = (PrintManager) requireContext()
+                                            .getSystemService(Context.PRINT_SERVICE);
+                                    pm.print(safeTitle + "_笔记",
+                                            webView.createPrintDocumentAdapter(safeTitle + "_笔记"),
+                                            new PrintAttributes.Builder()
+                                                    .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                                                    .build());
+                                }, error ->
+                                        Toast.makeText(getContext(), "导出失败", Toast.LENGTH_SHORT).show()
+                        )
+        );
+    }
+
+
 }
