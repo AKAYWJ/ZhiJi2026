@@ -6,4 +6,9 @@
         android:title="考前突击"
         android:icon="@drawable/ic_exam"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_manual"
+        android:title="使用手册"
+        android:icon="@drawable/ic_manual"
+        app:showAsAction="always" />
 </menu>

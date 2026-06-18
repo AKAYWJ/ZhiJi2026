@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,12 +14,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
+import top.ywj.zhiji2026.data.model.Course;
 import top.ywj.zhiji2026.data.repository.CourseRepository;
 import top.ywj.zhiji2026.ui.exam.ExamActivity;
 import top.ywj.zhiji2026.ui.home.CourseAdapter;
 import top.ywj.zhiji2026.ui.home.HomeViewModel;
 import top.ywj.zhiji2026.ui.course.CourseDetailActivity;
+import top.ywj.zhiji2026.ui.manual.ManualActivity;
+
+import android.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,8 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ExamActivity.class));
                 return true;
             }
+            if (item.getItemId() == R.id.action_manual) {
+                startActivity(new Intent(this, ManualActivity.class));
+                return true;
+            }
             return false;
         });
+
 
     }
 
@@ -60,7 +74,36 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
         rv.setAdapter(adapter);
+
+        // 左滑删除课程
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                0, ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder vh, int direction) {
+                int pos = vh.getAdapterPosition();
+                Course course = adapter.getCurrentList().get(pos);
+                adapter.notifyItemChanged(pos); // 恢复显示，等用户确认
+
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this);
+                androidx.appcompat.app.AlertDialog dialog = builder
+                        .setTitle("删除课程")
+                        .setMessage("确定删除「" + course.getName() + "」吗？\n将同时删除该课程下所有录音、笔记和文件，且不可恢复。")
+                        .setNegativeButton("取消", (d, w) -> adapter.notifyItemChanged(pos))
+                        .setPositiveButton("删除", (d, w) -> viewModel.deleteCourse(course))
+                        .show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        .setTextColor(getColor(R.color.recording_red));
+            }
+        });
+        helper.attachToRecyclerView(rv);
     }
+
 
     private void setupFab() {
         fabAdd = findViewById(R.id.fab_add);
@@ -76,12 +119,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showCreateDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_create_course, null);
         EditText etName = dialogView.findViewById(R.id.et_course_name);
         EditText etSemester = dialogView.findViewById(R.id.et_semester);
 
-        builder.setTitle("新建课程")
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("新建课程")
                 .setView(dialogView)
                 .setPositiveButton("确定", (dialog, which) -> {
                     String name = etName.getText().toString().trim();

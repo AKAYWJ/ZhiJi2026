@@ -2,6 +2,7 @@ package top.ywj.zhiji2026.data.local.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -21,4 +22,11 @@ public interface CourseDao {
 
     @Query("SELECT * FROM courses WHERE id = :id")
     Course getById(String id);
+
+    @Delete
+    void delete(Course course);
+
+    @Query("DELETE FROM lectures WHERE courseId = :courseId")
+    void deleteLecturesByCourseId(String courseId);
+
 }

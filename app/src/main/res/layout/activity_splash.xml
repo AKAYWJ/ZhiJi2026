@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- 背景水印 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="80dp"
+        android:text="智记2026"
+        android:textColor="#0D000000"
+        android:textSize="80sp"
+        android:textStyle="bold"
+        android:alpha="0.06"
+        android:rotation="-12"
+        android:scaleX="1.8"
+        android:scaleY="1.8" />
+
+    <!-- 主视觉区 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- LOGO 卡片 -->
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/bg_logo_card"
+            android:elevation="8dp">
+
+            <!-- 白色「记」字 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="记"
+                android:textColor="@color/white"
+                android:textSize="48sp"
+                android:textStyle="bold" />
+
+            <!-- 黄色星光（AI点缀） -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="14dp"
+                android:text="✦"
+                android:textColor="#FFD166"
+                android:textSize="18sp" />
+        </FrameLayout>
+
+        <!-- 品牌名 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="智记2026"
+            android:textColor="@color/text_primary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08" />
+
+        <!-- 功能概括 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="课堂录音 · AI笔记 · 知识管理"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:letterSpacing="0.04" />
+    </LinearLayout>
+
+    <!-- 底部版权 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="36dp"
+        android:text="ZhiJI © 2026"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+</FrameLayout>

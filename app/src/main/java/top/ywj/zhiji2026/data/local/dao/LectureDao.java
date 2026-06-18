@@ -35,6 +35,10 @@ public interface LectureDao {
     void finishLecture(String id, String status, String audioPath, String transcript, String markdown, int photoCount);
     @Delete
     void delete(Lecture lecture);
+    @Query("SELECT * FROM lectures WHERE courseId = :courseId")
+    List<Lecture> getByCourseIdSync(String courseId);
+    @Query("DELETE FROM lectures WHERE courseId = :courseId")
+    void deleteLecturesByCourseId(String courseId);
 
 
 }

@@ -30,6 +30,13 @@ public class HomeViewModel extends ViewModel {
                         .subscribe(() -> {}, Throwable::printStackTrace)
         );
     }
+    public void deleteCourse(Course course) {
+        disposables.add(
+                repository.deleteCourse(course)
+                        .subscribe(() -> {}, Throwable::printStackTrace)
+        );
+    }
+
 
 
     @Override
@@ -49,5 +56,7 @@ public class HomeViewModel extends ViewModel {
         public <T extends ViewModel> T create(Class<T> modelClass) {
             return (T) new HomeViewModel(repository);
         }
+
+
     }
 }

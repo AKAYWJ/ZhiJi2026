@@ -8,5 +8,29 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.ZhiJI.Dialog</item>
+    </style>
+
+    <style name="ThemeOverlay.ZhiJI.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="shapeAppearance">@style/ShapeAppearance.ZhiJI.Dialog</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/DialogTitle</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/DialogBody</item>
+    </style>
+
+    <style name="ShapeAppearance.ZhiJI.Dialog" parent="ShapeAppearance.Material3.Corner.ExtraLarge">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="DialogTitle" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="DialogBody" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
     </style>
 </resources>
