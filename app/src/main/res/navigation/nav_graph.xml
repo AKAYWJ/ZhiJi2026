@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/activity_main">
+
+    <activity
+        android:id="@+id/activity_main"
+        android:name="top.ywj.zhiji2026.MainActivity"
+        android:label="智记"
+        tools:layout="@layout/activity_main" />
+
+    <activity
+        android:id="@+id/activity_course_detail"
+        android:name="top.ywj.zhiji2026.ui.course.CourseDetailActivity"
+        android:label="课程详情"
+        tools:layout="@layout/activity_course_detail" />
+
+    <activity
+        android:id="@+id/activity_record"
+        android:name="top.ywj.zhiji2026.ui.record.RecordActivity"
+        android:label="录制"
+        tools:layout="@layout/activity_record" />
+
+    <activity
+        android:id="@+id/activity_note"
+        android:name="top.ywj.zhiji2026.ui.note.NoteActivity"
+        android:label="笔记"
+        tools:layout="@layout/activity_note" />
+
+    <activity
+        android:id="@+id/activity_exam"
+        android:name="top.ywj.zhiji2026.ui.exam.ExamActivity"
+        android:label="考前突击"
+        tools:layout="@layout/activity_exam" />
+</navigation>
