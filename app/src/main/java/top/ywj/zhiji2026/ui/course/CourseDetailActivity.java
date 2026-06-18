@@ -286,7 +286,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                             asrError -> {
                                 android.util.Log.e("CourseDetail", "ASR 请求失败", asrError);
                                 lectureRepo.finishLecture(lectureId, "error",
-                                                "", "", "", 0)
+                                                localAudioPath, "", "", 0)
                                         .subscribeOn(Schedulers.io())
                                         .subscribe();
                                 Toast.makeText(this, "解析失败", Toast.LENGTH_SHORT).show();

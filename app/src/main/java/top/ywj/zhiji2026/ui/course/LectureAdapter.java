@@ -41,7 +41,7 @@ public class LectureAdapter extends ListAdapter<Lecture, LectureAdapter.ViewHold
         if ("done".equals(lecture.getStatus())) {
             statusText = "已处理";
             statusBgRes = R.drawable.bg_status_done;
-            holder.progressProcessing.setVisibility(View.GONE);
+            holder.tvStatus.setTextColor(holder.itemView.getContext().getColor(R.color.status_done_text));
         } else if ("asr".equals(lecture.getStatus())) {
             statusText = "解析中";
             statusBgRes = R.drawable.bg_status_processing;

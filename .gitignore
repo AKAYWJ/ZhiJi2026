@@ -13,4 +13,5 @@
 .externalNativeBuild
 .cxx
 *.keystore
+*.zip
 local.properties

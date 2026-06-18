@@ -129,7 +129,7 @@ public class RecordViewModel extends ViewModel {
                                 },
                                 error -> {
                                     lectureRepo.finishLecture(currentLectureId, "error",
-                                                    "", "", "", photoCount)
+                                                    this.audioPath, "", "", photoCount)
                                             .subscribeOn(Schedulers.io())
                                             .subscribe();
                                 }

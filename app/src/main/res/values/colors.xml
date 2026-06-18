@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#1976D2</color>
-    <color name="primary_dark">#1565C0</color>
-    <color name="accent">#FF5722</color>
-    <color name="background">#F5F5F5</color>
+    <!-- 主色：知几蓝，柔和、有学术感 -->
+    <color name="primary">#5B6ABF</color>
+    <color name="primary_dark">#424F9E</color>
+    <color name="accent">#5B6ABF</color>
+
+    <!-- 背景：纯白为主，干净明亮 -->
+    <color name="background">#FFFFFF</color>
     <color name="surface">#FFFFFF</color>
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
+    <color name="card_stroke">#0D000000</color>
+
+    <!-- 文字 -->
+    <color name="text_primary">#1A1A1A</color>
+    <color name="text_secondary">#8E8E93</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- 状态标签 - 低饱和度 -->
+    <color name="status_done_text">#2E7D32</color>
+    <color name="status_done_bg">#E8F5E9</color>
+    <color name="status_processing_text">#E65100</color>
+    <color name="status_processing_bg">#FFF3E0</color>
+    <color name="status_note_gen_text">#1565C0</color>
+    <color name="status_note_gen_bg">#E3F2FD</color>
+    <color name="status_error_text">#C62828</color>
+    <color name="status_error_bg">#FFEBEE</color>
+    <color name="status_pending_text">#616161</color>
+    <color name="status_pending_bg">#F5F5F5</color>
+
     <color name="recording_red">#E53935</color>
     <color name="white">#FFFFFF</color>
 </resources>

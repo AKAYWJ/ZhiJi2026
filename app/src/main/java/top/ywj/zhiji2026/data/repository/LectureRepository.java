@@ -92,9 +92,36 @@ public class LectureRepository {
 
 
     public Completable deleteLecture(Lecture lecture) {
-        return Completable.fromAction(() -> db.lectureDao().delete(lecture))
-                .subscribeOn(Schedulers.io());
+        return Completable.fromAction(() -> {
+            String audioPath = lecture.getAudioPath();
+            if (audioPath != null && !audioPath.isEmpty()) {
+                File audioFile = new File(audioPath);
+                File parentDir = audioFile.getParentFile();
+                if (parentDir != null && parentDir.exists()) {
+                    if ("audio".equals(parentDir.getName())) {
+                        // 共享缓存目录，只删文件
+                        audioFile.delete();
+                    } else {
+                        // 独立讲座目录，递归删除整个文件夹
+                        deleteDir(parentDir);
+                    }
+                }
+            }
+            db.lectureDao().delete(lecture);
+        }).subscribeOn(Schedulers.io());
     }
+
+    private void deleteDir(File dir) {
+        File[] children = dir.listFiles();
+        if (children != null) {
+            for (File child : children) {
+                deleteDir(child);
+            }
+        }
+        dir.delete();
+    }
+
+
 
     // LectureRepository.java，deleteLecture 上方加
     public Single<Lecture> getLectureById(String id) {

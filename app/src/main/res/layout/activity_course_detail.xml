@@ -10,20 +10,28 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
+        android:background="@color/background"
+        android:elevation="0dp"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        app:navigationIconTint="@android:color/white"
-        app:titleTextColor="@android:color/white"
+        app:navigationIconTint="@color/text_primary"
+        app:titleTextColor="@color/text_primary"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/course_menu"
-        android:theme="@style/ThemeOverlay.Material3.Dark"
-        />
+        app:menu="@menu/course_menu" />
+
+    <!-- 底部细线分隔，替代蓝色Toolbar的视觉分隔 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#0D000000"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_lectures"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="16dp"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="80dp"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent" />
@@ -32,7 +40,7 @@
         android:id="@+id/fab_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
+        android:layout_margin="20dp"
         android:src="@drawable/ic_mic"
         android:contentDescription="开始录制"
         app:tint="@android:color/white"
